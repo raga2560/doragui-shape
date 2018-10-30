@@ -1,0 +1,281 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Crypto Currency Wallet
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="refresh()">
+                <ion-icon name="refresh"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons start>
+            <button ion-button icon-only>
+                <ion-icon name="power"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-segment [(ngModel)]="relationship" padding>
+        <ion-segment-button class="colorbutton" value="dashcoin">
+            DASHCOIN
+        </ion-segment-button>
+        <ion-segment-button class="colorbutton" value="bitcoin">
+            BITCOIN
+        </ion-segment-button>
+    </ion-segment>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'bitcoin'">
+            <ion-item-divider class="roundedge">
+                Bitcoin wallet 
+            </ion-item-divider>
+            <ion-card text-center>
+                <ion-label>Bitcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+                <ion-label>
+                Bitcoin wallet balance :   {{walletbalance.balance}} 
+                </ion-label>
+                <ion-label> Unconfirmed balance : {{walletbalance.unconfirmed_balance }}</ion-label>
+
+            </ion-card>
+
+
+            <ion-item-divider class="roundedge">
+                Send Bitcoin
+            </ion-item-divider>
+
+            <ion-card text-center >
+                <ion-input   type="text" [(ngModel)]="sendaddress" placeholder="Enter address to send "></ion-input>
+                <button  ion-button small (click)="pastestring()" class="colorbutton">Paste address</button>
+            </ion-card>
+            <ion-card text-center >
+                <ion-input   type="text" [(ngModel)]="serverless.sendamount" placeholder="Enter amount to send "></ion-input>
+                <button ion-button small (click)="directSend()" class="colorbutton">Send</button>
+            </ion-card>
+ <ion-item text-wrap *ngIf="errordata.message != ''" color="danger">
+            {{errordata.message}}
+        </ion-item>
+
+
+            <ion-card text-center *ngIf="serverless.sendtxid != ''">
+                <ion-label>
+            Sent transaction ID: {{serverless.sendtxid}}
+                </ion-label>
+                <ion-label>
+            Sent amount : {{serverless.sendamount}}
+                </ion-label>
+            </ion-card>
+            <ion-card text-center>
+                <ion-card-title padding >
+                <button ion-button small (click)="scan()" class="colorbutton">Scan QR-CODE to send</button>
+                </ion-card-title>
+                <ion-card-content *ngIf="sendqrcode != ''">
+                    <qr-code id="qrcode" [(value)]="sendqrcode" [canvas]="true"></qr-code>
+ {{sendqrcode}}
+                </ion-card-content>
+            </ion-card>
+            <ion-item-divider class="roundedge">
+                My address to Receive Bitcoin
+            </ion-item-divider>
+            <ion-card text-center>
+                <ion-label text-wrap>
+                 {{walletbalance.address}} 
+                </ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="copyaddress()">Copy address</button>
+            </ion-card>
+
+            <ion-card text-center>
+                <ion-card-title padding >
+                    My QR-code to receive
+                </ion-card-title>
+                <ion-card-content>
+                    <qr-code id="qrcode" [value]="receiveqrcode" [canvas]="true"></qr-code>
+                </ion-card-content>
+ <button ion-button icon-only (click)="copyaddress()" color="primary" clear>
+                            <ion-icon name="copy"></ion-icon>
+                        </button>
+
+  <button ion-button icon-only (click)="regularShareAddress()" color="primary" clear>
+                    <ion-icon class="share-icon" name="share"></ion-icon>
+                  </button>
+                      <button ion-button icon-only (click)="whatsappShareAddress()" color="primary" clear>
+                    <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
+                  </button>
+
+
+            </ion-card>
+
+
+            <ion-item-divider class="roundedge">
+                 Latest 3 sent transactions 
+            </ion-item-divider>
+
+            <div *ngIf="sentTransactions != ''">
+                <div *ngFor="let todo of sentTransactions.reverse(); let i = index">
+                    <ion-card *ngIf="i<3" text-center>
+                        <ion-label text-wrap>Tx: {{todo.paymenttxid}}
+                            <h3>Amount: {{todo.paymentvalue}} </h3>
+                            <h3>To: {{todo.paymentaddress}} </h3>
+                        </ion-label>
+                        <button small ion-button class="colorbutton" (click)="viewpaymentmade(todo)">view</button>
+
+                    </ion-card>
+
+                </div>
+            </div>
+            <ion-item *ngIf="sentTransactions == ''">
+                 No sent transactions 
+            </ion-item>
+            <ion-item-divider class="roundedge">
+                 Latest 3 received transactions 
+            </ion-item-divider>
+            <div *ngIf="receivedTransactions != ''">
+                <div *ngFor="let todo of receivedTransactions.reverse(); let i = index">
+
+                    <ion-card *ngIf="i<3" text-center>
+                        <ion-label text-wrap>Tx: {{todo.paymenttxid}}
+                            <h3>From: {{todo.paymentaddress}} </h3>
+                            <h3>Total: {{todo.paymentvalue}} </h3>
+                        </ion-label>
+                        <button small ion-button class="colorbutton" (click)="viewpaymentreceived(todo)">view</button>
+
+                    </ion-card>
+
+                </div>
+            </div>
+            <ion-item *ngIf="receivedTransactions == ''">
+                 No received transactions 
+            </ion-item>
+
+        </ion-list>
+    </div>
+
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'dashcoin'">
+
+            <ion-item-divider class="roundedge">
+                Dashcoin wallet 
+            </ion-item-divider>
+            <ion-card text-center>
+                <ion-label>Dashcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+                <ion-label>
+                Dashcoin wallet balance :  {{walletbalance.balance}}  
+                </ion-label>
+                <ion-label> Unconfirmed balance : {{walletbalance.unconfirmed_balance }}</ion-label>
+
+            </ion-card>
+
+
+            <ion-item-divider class="roundedge">
+                Send Dashcoin
+            </ion-item-divider>
+
+            <ion-card text-center>
+                <ion-input type="text" [(ngModel)]="sendaddress" placeholder="Enter address to send "></ion-input>
+                <button  ion-button small (click)="pastestring()" class="colorbutton">Paste address</button>
+                <button  ion-button small (click)="directSend()" class="colorbutton">Send</button>
+            </ion-card>
+ <ion-item text-wrap *ngIf="errordata.message != ''" color="danger">
+            {{errordata.message}}
+        </ion-item>
+            <ion-card text-center *ngIf="serverless.sendtxid != ''">
+                <ion-label>
+            Sent transaction ID: {{serverless.sendtxid}}
+                </ion-label>
+                <ion-label>
+            Sent amount : {{serverless.sendamount}}
+                </ion-label>
+            </ion-card>
+            <ion-card  text-center>>
+                <ion-card-title padding>
+                <button ion-button small (click)="scan()" class="colorbutton">Scan QR-CODE to send</button>
+                </ion-card-title>
+                <ion-card-content *ngIf="sendqrcode != ''">
+                    <qr-code id="qrcode" [value]="sendqrcode" [canvas]="true"></qr-code>
+                </ion-card-content>
+            </ion-card>
+            <ion-item-divider class="roundedge">
+                My address to Receive Dashcoin
+            </ion-item-divider>
+            <ion-card text-center>
+                <ion-label text-wrap>
+                 {{walletbalance.address}} 
+                </ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="copyaddress()">Copy address</button>
+
+
+            </ion-card>
+
+            <ion-card  text-center>
+                <ion-card-title padding>
+                    My QR-code to receive
+                </ion-card-title>
+                <ion-card-content>
+                    <qr-code id="qrcode" [value]="sendqrcode" [canvas]="true"></qr-code>
+                </ion-card-content>
+ <button ion-button icon-only (click)="copyaddress()" color="primary" clear>
+                            <ion-icon name="copy"></ion-icon>
+                        </button>
+
+  <button ion-button icon-only (click)="regularShareAddress()" color="primary" clear>
+                    <ion-icon class="share-icon" name="share"></ion-icon>
+                  </button>
+                      <button ion-button icon-only (click)="whatsappShareAddress()" color="primary" clear>
+                    <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
+                  </button>
+
+            </ion-card>
+
+
+            <ion-item-divider class="roundedge">
+                Latest 3 sent transactions
+            </ion-item-divider>
+
+            <div *ngIf="sentTransactions != ''">
+                <div *ngFor="let todo of sentTransactions.reverse(); let i = index">
+
+                    <ion-card *ngIf="i<3" text-center>
+                        <ion-label text-wrap>Tx: {{todo.paymenttxid}}
+                            <h3>Amount: {{todo.paymentvalue}} </h3>
+                            <h3>To: {{todo.paymentaddress}} </h3>
+                        </ion-label>
+                        <button small ion-button class="colorbutton" (click)="viewpaymentmade(todo)">view</button>
+
+                    </ion-card>
+
+                </div>
+            </div>
+            <ion-item *ngIf="sentTransactions == ''">
+                 No sent transactions 
+            </ion-item>
+            <ion-item-divider class="roundedge">
+                Latest 3 received transactions
+            </ion-item-divider>
+            <div *ngIf="receivedTransactions != ''">
+                <div *ngFor="let todo of receivedTransactions.reverse(); let i = index">
+
+                    <ion-card *ngIf="i<3" text-center>
+                        <ion-label text-wrap>Tx: {{todo.paymenttxid}}
+                            <h3>From: {{todo.paymentaddress}} </h3>
+                            <h3>Total: {{todo.paymentvalue}} </h3>
+                        </ion-label>
+                        <button  ion-button small class="colorbutton" (click)="viewpaymentreceived(todo)">view</button>
+
+                    </ion-card>
+
+                </div>
+            </div>
+            <ion-item *ngIf="receivedTransactions == ''">
+                 No received transactions
+            </ion-item>
+
+        </ion-list>
+    </div>
+</ion-content>

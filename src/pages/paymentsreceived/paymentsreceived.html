@@ -1,0 +1,40 @@
+<ion-header>
+ <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  <ion-title>
+    Payments received
+  </ion-title>
+  <ion-buttons end>
+    <button ion-button icon-only (click)="refresh()"><ion-icon name="refresh"></ion-icon></button>
+  </ion-buttons>
+ </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list >
+    <div *ngIf="receivedTransactions != ''">
+                <div *ngFor="let todo of receivedTransactions.reverse(); let i = index">
+
+                    <ion-card *ngIf="i<15" text-center>
+                        <ion-label text-wrap>Tx: {{todo.paymenttxid}}
+                            <h3>From: {{todo.paymentaddress}} </h3>
+                            <h3>Total: {{todo.paymentvalue}} </h3>
+                        </ion-label>
+                        <button  ion-button small class="colorbutton" (click)="viewpaymentreceived(todo)">view</button>
+
+                    </ion-card>
+
+                </div>
+            </div>
+            <ion-item *ngIf="receivedTransactions == ''">
+                 No received transactions
+            </ion-item>
+
+
+  </ion-list>
+
+</ion-content>
+

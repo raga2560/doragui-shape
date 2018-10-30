@@ -1,0 +1,52 @@
+<ion-header>
+ <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Access control </ion-title>
+ </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-segment [(ngModel)]="relationship" padding>
+        <ion-segment-button class="segmentbutton" value="setpin">
+            SET-PIN
+        </ion-segment-button>
+        <ion-segment-button class="segmentbutton" value="unlock">
+            UN-LOCK
+        </ion-segment-button>
+    </ion-segment>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'setpin'">
+
+            <ion-item-divider class="roundedge">
+                Set PIN 
+            </ion-item-divider>
+              <ion-item>
+                <ion-label><ion-icon name="lock"></ion-icon> Enter PIN</ion-label>
+                <ion-input [(ngModel)]="password" placeholder="******" type="password"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><ion-icon name="lock"></ion-icon> Reenter PIN</ion-label>
+                <ion-input [(ngModel)]="reenteredpassword" placeholder="******" type="password"></ion-input>
+              </ion-item>
+            <button ion-button full (click)="login()"  class="colorbutton">Save PIN</button>
+
+  </ion-list>
+ </div>
+
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'unlock'">
+
+            <ion-item-divider class="roundedge">
+                Unlock wallet
+            </ion-item-divider>
+              <ion-item>
+                <ion-label><ion-icon name="lock"></ion-icon> Enter PIN</ion-label>
+                <ion-input [(ngModel)]="password" placeholder="******" type="password"></ion-input>
+              </ion-item>
+            <button ion-button full (click)="login()"  class="colorbutton">Unlock </button>
+
+  </ion-list>
+ </div>
+</ion-content>

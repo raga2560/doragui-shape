@@ -1,0 +1,31 @@
+<ion-split-pane class="container">
+
+<ion-menu [content]="content">
+ <ion-header class="menu-header">
+   <ion-avatar>
+      <img class="user-avatar round" src='assets/icon/icondog.png'>
+   </ion-avatar>
+      <!--ion-title>Menu</ion-title -->
+  </ion-header>
+
+
+  <ion-content padding>
+    <ion-list no-lines>
+      <div  *ngFor="let p of pages; " >
+      <button menuClose *ngIf="p.title != 'Divider' " ion-item  (click)="openPage(p)">
+       <ion-icon item-start [name]="p.icon" ></ion-icon>
+
+        {{p.title}}
+      </button>
+      <ion-item-divider class="roundedge" *ngIf="p.title=='Divider'" >
+      </ion-item-divider>
+      </div>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="app" ></ion-nav>
+</ion-split-pane>
+

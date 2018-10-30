@@ -1,0 +1,29 @@
+<ion-header>
+ <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Email validation </ion-title>
+ </ion-navbar>
+</ion-header>
+
+<ion-content>
+ 
+    <ion-row class="login-form">
+        <ion-col>
+            <ion-list inset>
+ 
+              <ion-item>
+                <ion-label><ion-icon name="person"></ion-icon></ion-label>
+                <ion-input [(ngModel)]="email" placeholder="email" type="text"></ion-input>
+              </ion-item>
+ 
+            </ion-list>
+ 
+            <button ion-button full (click)="emailvalidate()"  class="colorbutton">Email validate</button>
+ 
+        </ion-col>
+    </ion-row>
+ 
+ 
+</ion-content>

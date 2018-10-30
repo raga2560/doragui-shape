@@ -1,0 +1,8 @@
+{
+  "name": "puppypay_BIDA",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "app_id": "a4c84a5b"
+}

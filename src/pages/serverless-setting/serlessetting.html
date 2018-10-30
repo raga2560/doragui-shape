@@ -1,0 +1,125 @@
+<!--
+  Generated template for the DroneLockPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            External Wallet Information
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-segment [(ngModel)]="relationship" padding>
+        <ion-segment-button class="segmentbutton" value="dashcoin">
+            DASHCOIN
+        </ion-segment-button>
+        <ion-segment-button class="segmentbutton" value="bitcoin">
+            BITCOIN
+        </ion-segment-button>
+    </ion-segment>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'dashcoin'">
+
+            <ion-item-divider class="roundedge">
+                Dashcoin wallet
+            </ion-item-divider>
+
+            <ion-card text-center>
+                <ion-label>Dashcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="copyaddr()">Copy</button>
+            </ion-card>
+
+            <ion-card text-center>
+                <ion-label> Dashcoin wallet balance: {{walletbalance.balance}}</ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="getWalletBalance()">Get balance
+                </button>
+            </ion-card>
+            <ion-item>
+                <ion-label> Unconfirmed balance : {{walletbalance.unconfirmed_balance }}</ion-label>
+            </ion-item>
+
+
+            <ion-item-divider class="roundedge">
+                External dashcoin wallet setting
+            </ion-item-divider>
+
+            <ion-card text-center>
+                <ion-input type="text" [(ngModel)]="externalwallet.sendaddress"
+                           placeholder="External wallet address"></ion-input>
+                <button item-right ion-button small (click)="saveexternaladdress()" class="colorbutton">Save</button>
+            </ion-card>
+            <ion-card text-center>
+                <ion-input type="text" [(ngModel)]="externalwallet.sendamount"
+                           placeholder="Amount to send external"></ion-input>
+                <button item-right ion-button small (click)="sendexternalamount()" class="colorbutton">Send external
+                </button>
+            </ion-card>
+        </ion-list>
+    </div>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'bitcoin'">
+            <ion-item-divider class="roundedge">
+                Bitcoin wallet
+            </ion-item-divider>
+
+
+            <ion-card text-center>
+                <ion-label>Bitcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="copyaddr()">Copy</button>
+            </ion-card>
+
+            <ion-card text-center>
+                <ion-label> Bitcoin wallet balance: {{walletbalance.balance}}</ion-label>
+                <button item-right ion-button small class="colorbutton" (click)="getWalletBalance()">Get balance
+                </button>
+            </ion-card>
+            <ion-item>
+                <ion-label> Unconfirmed balance : {{walletbalance.unconfirmed_balance }}</ion-label>
+            </ion-item>
+
+
+            <ion-item-divider class="roundedge">
+                External bitcoin wallet setting
+            </ion-item-divider>
+
+            <ion-card text-center>
+                <ion-input type="text" [(ngModel)]="externalwallet.sendaddress"
+                           placeholder="External wallet address"></ion-input>
+                <button item-right ion-button small (click)="saveexternaladdress()" class="colorbutton">Save</button>
+            </ion-card>
+            <ion-card text-center>
+                <ion-input type="text" [(ngModel)]="externalwallet.sendamount"
+                           placeholder="Amount to send external"></ion-input>
+                <button item-right ion-button small (click)="sendexternalamount()" class="colorbutton">Send external
+                </button>
+            </ion-card>
+        </ion-list>
+    </div>
+
+
+    <ion-list no-lines>
+        <!--ion-item>
+            <ion-label > Select fees = {{ serverless.fees }}</ion-label>
+                    <ion-select [(ngModel)]="serverless.fees">
+                        <ion-option *ngFor="let todo of feeslevel"
+                        value={{todo.levelfees}}
+                        > {{todo.levelname}}
+                        </ion-option>
+        </ion-item -->
+
+
+    </ion-list>
+
+</ion-content>

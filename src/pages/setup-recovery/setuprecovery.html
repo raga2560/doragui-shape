@@ -1,0 +1,97 @@
+<!--
+  Generated template for the DroneLockPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Setup wallet recovery
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-segment [(ngModel)]="relationship" padding>
+        <ion-segment-button class="segmentbutton" value="dashcoin">
+            DASHCOIN
+        </ion-segment-button>
+        <ion-segment-button class="segmentbutton" value="bitcoin">
+            BITCOIN
+        </ion-segment-button>
+    </ion-segment>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'dashcoin'">
+
+            <ion-item-divider class="roundedge">
+                Dashcoin wallet
+            </ion-item-divider>
+
+            <ion-card text-center>
+                <ion-label>Dashcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+            </ion-card>
+
+
+
+        </ion-list>
+    </div>
+    <div class="padContent" [ngSwitch]="relationship">
+        <ion-list *ngSwitchCase="'bitcoin'">
+            <ion-item-divider class="roundedge">
+                Bitcoin wallet
+            </ion-item-divider>
+
+
+            <ion-card text-center>
+                <ion-label>Bitcoin wallet address :
+                    <h3> {{walletbalance.address}} </h3>
+                </ion-label>
+            </ion-card>
+
+        </ion-list>
+    </div>
+
+
+
+    <ion-list class="padContent">
+ <ion-item-divider class="roundedge">
+                Create wallet recovery
+            </ion-item-divider>
+  <ion-card text-center >
+                <ion-input   type="text" [(ngModel)]="walletpassword" placeholder="Enter wallet recovery password "></ion-input>
+                <button (click)="createPdf()" class="colorbutton" item-right ion-button> Generate recovery data </button>
+            </ion-card>
+  <ion-card class="secondary" text-center *ngIf="encryptioninprogress">
+ Preparing recovery file
+            </ion-card>
+
+
+ <ion-item-divider class="roundedge">
+                Wallet recovery data
+            </ion-item-divider>
+  <ion-card text-center >
+                <button (click)="downloadPdf()" [disabled]="!pdfObj" class="colorbutton" item-left ion-button> Download </button>
+                <button (click)="sendEmail()" [disabled]="!pdfObj" class="colorbutton" item-right ion-button> Send by email </button>
+            </ion-card>
+
+
+        <!--ion-item>
+            <ion-label > Select fees = {{ serverless.fees }}</ion-label>
+                    <ion-select [(ngModel)]="serverless.fees">
+                        <ion-option *ngFor="let todo of feeslevel"
+                        value={{todo.levelfees}}
+                        > {{todo.levelname}}
+                        </ion-option>
+        </ion-item -->
+
+
+    </ion-list>
+
+</ion-content>

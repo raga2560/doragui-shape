@@ -1,0 +1,20 @@
+
+.roundedge {
+
+                border-radius: 30px !important;
+                padding-left: 10px !important;
+                margin-bottom: 10px;
+                background-color: map-get($colors, twitter);
+                font-size: 0.9em;
+
+
+}
+
+.colorbutton {
+
+                border-radius: 30px !important;
+                background-color: map-get($colors, twitter);
+                font-size: 0.9em;
+}
+
+

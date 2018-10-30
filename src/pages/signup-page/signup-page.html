@@ -1,0 +1,54 @@
+<ion-header>
+ <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create account </ion-title>
+ </ion-navbar>
+</ion-header>
+ 
+ 
+<ion-content padding>
+ 
+<ion-item-divider class="roundedge">
+             Registration
+        </ion-item-divider>
+
+    <ion-row class="account-form">
+        <ion-col>
+            <ion-list inset>
+ 
+                <ion-item>
+                    <ion-label><ion-icon name="mail"></ion-icon></ion-label>
+                    <ion-input [(ngModel)]="email" placeholder="Email" type="email"></ion-input>
+                </ion-item>
+ 
+                <ion-item>
+                    <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+                    <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input item-left [(ngModel)]="registrationcode" placeholder="Enter Registration code" type="text"></ion-input>
+ 
+
+                 <a item-right ion-button class="colorbutton" href={{termsurl}} target="_blank">Click to get registration code 
+             </a>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Subscription type</ion-label>
+                    <ion-select [(ngModel)]="role">
+                        <ion-option value="creator">Monthly</ion-option>
+                        <ion-option value="prepaid">Prepaid</ion-option>
+                        <ion-option value="annual">Annual</ion-option>
+                    </ion-select>
+                </ion-item>
+ 
+            </ion-list>
+ 
+            <button ion-button full (click)="register()" class="colorbutton">Register</button>
+ 
+        </ion-col>
+    </ion-row>
+ 
+</ion-content>
