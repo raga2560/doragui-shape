@@ -118,11 +118,28 @@ export class HomePage {
   this.walletService.initializeDashcoinWallet();
 
 
-  shapeshift.getRate('ltc_btc', function(error, rate: any) {
+  shapeshift.getRate('bch_ltc', function(error, rate: any) {
 
 	alert( rate._body);
   });
-  
+ 
+  let withdrawalAddress =  '3JTYAfjWq2N3xL5kUTQrrfKGNPiwTTgjvX';  //ltc
+  let returnAddress =  '3JTYAfjWq2N3xL5kUTQrrfKGNPiwTTgjvX'; 
+  let accessToken =  ''; 
+                let data = {
+                withdrawal: withdrawalAddress,
+                pair: 'bch_ltc',
+                returnAddress,
+                token: accessToken
+              };
+    shapeshift.shift(data, (err, shapeData) => {
+                if (err ) {
+                  alert(shapeData._body);
+                  return;
+            }
+           alert(shapeData.deposit);
+
+      })
 
 
 

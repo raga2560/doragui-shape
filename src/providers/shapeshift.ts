@@ -54,7 +54,7 @@ export class ShapeshiftProvider {
         return cb(null, data);
       },
       data => {
-        return cb(data.error.message);
+        return cb(-1, data);
       }
     );
   }
